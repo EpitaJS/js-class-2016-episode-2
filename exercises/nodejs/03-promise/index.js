@@ -51,6 +51,7 @@ function askUser() {
   });
 }
 
+
 function fetchData(choices) {
   console.log('fetchData input :', choices);
 
@@ -62,7 +63,16 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+
+  fetch(url).then(function(response) {
+      if (response.ok) {
+          return response.blob();
+      }
+      else {
+          console.log("Error on network");
+      }
+  })
+  //return Promise.reject(new Error('fetchData not implemented !'));
 }
 
 function displayResults(data) {
