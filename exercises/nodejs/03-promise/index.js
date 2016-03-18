@@ -43,10 +43,11 @@ function askUser() {
         default: '9'
       }
     ], function (choices) {
+      console.log('ask user: function');
       console.log(choices);
-
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      resolve(choices);
     });
   });
 }
@@ -62,17 +63,26 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+
+  return fetch(url).then(function (response) {
+    spinner.stop();
+      if(response.ok) 
+        return response.json();
+      else
+        throw new Error('Error fetching url');
+  });
+  //return Promise.reject(new Error('fetchData not implemented !'));
 }
 
 function displayResults(data) {
   console.log('result :\n', prettyjson.render(data));
 }
 
-
+/*
 function getUrl () {
   return new Promise((resolve, reject) => {
-    setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
+    // setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
+    setTimeout(() => resolve("http://swapi.co/api/people/3"), 1500)
   })
 }
 
@@ -89,4 +99,4 @@ getUrl()
 .then(function displayResults(data) {
   console.log(data)
 })
-.catch(err => console.error(err));
+.catch(err => console.error(err));*/
