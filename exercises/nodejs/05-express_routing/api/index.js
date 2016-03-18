@@ -17,6 +17,10 @@ router.get('/', (req, res) => {
 //	res.send('hello from API sub-router !');
   // TODO a small page listing your endpoints
   // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
+
+   res.header('Access-Control-Allow-Origin', '*')
+   res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Accept');
+
   var routes = router.stack;
   var str = `
 	<!DOCTYPE html>
@@ -33,8 +37,7 @@ router.get('/', (req, res) => {
 
 	<h1>...</h1>`;
 	routes.forEach(function (route) {
-		console.log(route);
-		str += `<li><a href="/api${route.route.path}">${route.route.path}</a>`
+		str += `<li><a href="/api${route.route.path}">${route.route.path}</a>`;
 	});
 	res.send(str);
 });
@@ -45,6 +48,9 @@ router.get('/', (req, res) => {
 // be creative !
 
 router.get('/repo/forks', function (req, res) {
+	res.header('Access-Control-Allow-Origin', '*')
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Accept');
+
 	const fetch = require('node-fetch'); // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 
 	fetch('https://api.github.com/repos/EpitaJS/js-class-2016-episode-2/forks', [])
