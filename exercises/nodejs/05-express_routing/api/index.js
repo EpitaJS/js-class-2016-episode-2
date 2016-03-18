@@ -30,6 +30,7 @@ router.get('/', (req, res) => {
 <h1>...</h1>
 <li><a>${req.baseUrl}/why</a>
 <li><a>${req.baseUrl}/whereami</a>
+<li><a>${req.baseUrl}/whereamiPrecisely</a>
 
 <script>
 	document.querySelector('h1').textContent = document.title;
@@ -78,6 +79,57 @@ router.get('/whereami', function (req, res) {
 			      infoWindow.setContent('I AM HERE');
 			      map.setCenter(pos);
 						map.setZoom(15);
+			    }, function() {
+			      handleLocationError(true, infoWindow, map.getCenter());
+			    });
+			  } else {
+			    // Browser doesn't support Geolocation
+			    handleLocationError(false, infoWindow, map.getCenter());
+			  }
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASvmlEzQgG11RNNTMsW8yA0QKZMyN8e1M&callback=initMap"
+        async defer></script>
+  </body>
+</html>
+		`);
+});
+
+router.get('/whereamiPrecisely', function (req, res) {
+  res.send(`<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        width: 1200px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+          center: {lat: 48.853, lng: 2.348},
+          zoom: 18,
+					mapTypeId: google.maps.MapTypeId.HYBRID
+        });
+				var infoWindow = new google.maps.InfoWindow({map: map});
+
+			  // Try HTML5 geolocation.
+			  if (navigator.geolocation) {
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			      var pos = {
+			        lat: position.coords.latitude,
+			        lng: position.coords.longitude
+			      };
+
+			      infoWindow.setPosition(pos);
+			      infoWindow.setContent('I AM HERE');
+			      map.setCenter(pos);
+						map.setZoom(20);
 			    }, function() {
 			      handleLocationError(true, infoWindow, map.getCenter());
 			    });
