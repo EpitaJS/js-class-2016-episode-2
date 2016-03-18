@@ -29,12 +29,19 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(function callbackCore(err, hasWon) {
+    if (err) {
+      return console.log(err);
+    }
+
+    if (!hasWon) {
+      tryAgain(callbackCore);
+    }
+  });
 });
 
-
 function tryAgain(callback) {
-  prompt.get( [{
+  prompt.get([{
     name: 'value',
     description: chalk.blue.bold('Find the number between 1 and 100'), // Prompt displayed to the user
     pattern: /^\d{1,3}$/,
