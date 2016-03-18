@@ -60,7 +60,7 @@ function askUser() {
   });
 }
 
-function fetchData(choices, spinner) {
+function fetchData(choices) {
   console.log('fetchData input :', choices);
 
   const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id + '/';
