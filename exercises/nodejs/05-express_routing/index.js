@@ -24,13 +24,9 @@ const meta_router = require('../../../src/server/common/meta-routes');
 const app = express();
 
 app.use((req, res, next) => {
-  console.log(`Request to $(req.url) received at`, Date.now());
+  console.log(`Request to ${req.url} received at`, Date.now());
   res.header('x-received-at', Date.now()); // set a custom header
   next();
-});
-
-app.get('/', function(req, res) {
-  res.send('hello from app ! Try /meta /api');
 });
 
 app.use('/api', api_router);
