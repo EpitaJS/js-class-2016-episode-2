@@ -29,7 +29,18 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(function gameLoop(err, win) {
+	
+	if (err)
+		return console.error(err);
+
+	if (win === true) {
+		return 0;
+	}
+	else {
+		return tryAgain(gameLoop);
+	}
+  });
 });
 
 
