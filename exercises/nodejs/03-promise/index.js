@@ -47,6 +47,7 @@ function askUser() {
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      resolve(choices);
     });
   });
 }
@@ -62,6 +63,17 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
+  fetch(url).then(function onResponse(response) {
+    if (response.ok) {
+      return response.json();
+    } else {
+      spinner.stop();
+      throw new Error('Network response was not ok.');
+    }
+  }).then(function displayResults(data) {
+      spinner.stop();
+      console.log(data);
+  }).catch(err => console.error(err));
   return Promise.reject(new Error('fetchData not implemented !'));
 }
 
