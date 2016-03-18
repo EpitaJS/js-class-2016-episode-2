@@ -29,9 +29,15 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(function callback (err, won) {
+      if (err) return console.log(err);
+      else
+      {
+        if (!won)
+          tryAgain(callback);
+      }
+  });
 });
-
 
 function tryAgain(callback) {
   prompt.get( [{
