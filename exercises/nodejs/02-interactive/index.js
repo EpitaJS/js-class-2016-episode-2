@@ -29,7 +29,15 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  function foo(err, value) {
+    if (err)
+      return console.error(err);
+    if (!value)
+      tryAgain(foo);
+  }
+
+  tryAgain(foo);
+
 });
 
 
