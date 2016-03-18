@@ -63,6 +63,7 @@ function fetchData(choices) {
   const spinner = ora('Fetching StarWars API...');
   spinner.start();
 
+  // TODO now use the fetch API :
   return fetch(url)
   .then(function(response) {
     if (response.ok)
@@ -71,7 +72,6 @@ function fetchData(choices) {
       throw new Error('Something wrong happened');
   })
   .catch(function (error) { return Promise.reject(error) });
-  // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
 }
 

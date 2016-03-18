@@ -32,6 +32,7 @@ prompt.get([{
   tryAgain(isFound);
 });
 
+// TODO (DONE)
 function isFound(err, numberIsFound) {
      if (err) return console.error(err)
 
@@ -39,7 +40,7 @@ function isFound(err, numberIsFound) {
         tryAgain(isFound);
      }
 }
-
+// END TODO (DONE)
 
 function tryAgain(callback) {
   prompt.get( [{
