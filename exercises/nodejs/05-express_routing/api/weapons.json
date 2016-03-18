@@ -1,0 +1,12 @@
+[
+  {
+    "_id": 0,
+    "name": "Knife",
+    "type": "melee"
+  },
+  {
+    "_id": 0,
+    "name": "Rocket launcher",
+    "type": "ranged"
+  }
+]
