@@ -10,11 +10,13 @@
  */
 
 
-const _ = require('lodash');
+ const _ = require('lodash');
 const inquirer = require('inquirer'); // https://www.npmjs.com/package/inquirer
 const fetch = require('node-fetch'); // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
 const ora = require('ora'); // https://github.com/sindresorhus/ora
 const prettyjson = require('prettyjson');
+
+
 
 
 // admire how it's readbale :
@@ -30,25 +32,26 @@ askUser()
 function askUser() {
   return new Promise(function (resolve, reject) {
     inquirer.prompt([
-      {
+    {
         name: 'dataType',
         type: 'list',
         message: 'What do you want to know about ?',
         default: 'people',
         choices: ['films', 'people', 'planets', 'species', 'starships', 'vehicles']
-      },
-      {
+    },
+    {
         name: 'id',
         message: 'Which id ? (1-n)',
         default: '9'
-      }
+    }
     ], function (choices) {
       console.log(choices);
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-    });
+      resolve(choices);
   });
+});
 }
 
 function fetchData(choices) {
@@ -61,6 +64,12 @@ function fetchData(choices) {
   spinner.start();
 
   // TODO now use the fetch API :
+  return fetch(url).then(function onResponse(response)
+  {
+    console.log('FETCH');
+    if (response.ok) return response.json();
+    else throw new Error('Network response was not OK!')
+  });
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
   return Promise.reject(new Error('fetchData not implemented !'));
 }
@@ -73,20 +82,20 @@ function displayResults(data) {
 function getUrl () {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
-  })
+})
 }
 
-getUrl()
+/*getUrl()
 .then(function fetchData(url) {
   return fetch(url)
-    .then(function onResponse(response) {
+  .then(function onResponse(response) {
       if(response.ok)
         return response.json();
-      else
+    else
         throw new Error('Network response was not ok.');
-    });
+});
 })
 .then(function displayResults(data) {
   console.log(data)
 })
-.catch(err => console.error(err));
+.catch(err => console.error(err));*/
