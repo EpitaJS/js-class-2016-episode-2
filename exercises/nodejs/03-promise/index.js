@@ -17,15 +17,18 @@ const ora = require('ora'); // https://github.com/sindresorhus/ora
 const prettyjson = require('prettyjson');
 
 
-// admire how it's readbale :
-askUser()
-.then(fetchData)
-.then(displayResults)
-.catch((err) => {
-  console.error('! Something bad happened :');
-  console.error(err);
-});
 
+function action() {
+    // admire how it's readbale :
+    askUser()
+    .then(fetchData)
+    .then(displayResults)
+    .catch((err) => {
+      console.error('! Something bad happened :');
+      console.error(err);
+    });
+}
+action()
 
 function askUser() {
   return new Promise(function (resolve, reject) {
@@ -53,10 +56,7 @@ function askUser() {
 }
 
 function fetchData(choices) {
-  console.log('fetchData input :', choices);
-
   const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id;
-  console.log(url);
 
   const spinner = ora('Fetching StarWars API...');
   spinner.start();
@@ -66,13 +66,18 @@ function fetchData(choices) {
   return new Promise((resolve, reject) => {
       fetch(url, [])
       .then(function (response) {
-          resolve(response.json());
+          spinner.stop()
+          if (response.ok)
+            resolve(response.json());
+          else
+            throw new Error('Network response was not ok.');    
       })
   });
 }
 
 function displayResults(data) {
   console.log('result :\n', prettyjson.render(data));
+  action()
 }
 
 
