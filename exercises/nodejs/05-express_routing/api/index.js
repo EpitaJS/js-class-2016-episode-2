@@ -19,17 +19,17 @@ router.get('/', (req, res) => {
   // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
 });
 
-
-
-// TODO one or two routes
-// be creative !
-
-
+router.get('/add/:left/:right', (req, res) => {
+	var left = parseInt(req.params.left);
+	var right = parseInt(req.params.right);
+	var result = left + right;
+	res.send(`Adding: ${left} + ${right} = ${result}`);
+});
 
 ////////////////// examples //////////////
 
 router.get('/hello/:name', function (req, res) {
-  res.send(`Hello, ${req.name} !`);
+  res.send(`Hello, ${req.params.name} !`);
 });
 
 

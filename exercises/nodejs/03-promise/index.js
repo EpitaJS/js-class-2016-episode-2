@@ -44,6 +44,7 @@ function askUser() {
       }
     ], function (choices) {
       console.log(choices);
+      return(resolve(choices));
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
@@ -60,9 +61,16 @@ function fetchData(choices) {
   const spinner = ora('Fetching StarWars API...');
   spinner.start();
 
-  // TODO now use the fetch API :
-  // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+    return new Promise((resolve) => {
+    fetch(url, [])
+      .then(function (response) {
+        spinner.stop();
+        if (response.ok)
+          resolve(response.json());
+        else
+          throw new Error('Network response was not ok.');
+      })
+  });
 }
 
 function displayResults(data) {
