@@ -17,7 +17,7 @@ const ora = require('ora'); // https://github.com/sindresorhus/ora
 const prettyjson = require('prettyjson');
 
 
-// admire how it's readbale :
+// admire how it's readable:
 askUser()
 .then(fetchData)
 .then(displayResults)
@@ -47,6 +47,7 @@ function askUser() {
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      resolve(choices);
     });
   });
 }
@@ -62,14 +63,18 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  return fetch(url).then(function(response) {
+    if (response.ok) {
+      return Promise.resolve(response.json());
+    }
+  });
 }
 
 function displayResults(data) {
   console.log('result :\n', prettyjson.render(data));
 }
 
-
+/*
 function getUrl () {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
@@ -90,3 +95,4 @@ getUrl()
   console.log(data)
 })
 .catch(err => console.error(err));
+*/
