@@ -26,6 +26,8 @@ const app = express();
 app.use((req, res, next) => {
   console.log(`Request to $(req.url) received at`, Date.now());
   res.header('x-received-at', Date.now()); // set a custom header
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Acces-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 

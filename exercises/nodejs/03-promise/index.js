@@ -47,6 +47,7 @@ function askUser() {
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      resolve(choices);
     });
   });
 }
@@ -62,7 +63,17 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  return new Promise(function (resolve, reject) {
+    fetch(url).then(function onResponse(response)
+      {
+        if (response.ok)
+        {
+          spinner.stop();
+          resolve(response.json());
+        }
+        else
+          throw error ('Cannot fetch data');
+      })});
 }
 
 function displayResults(data) {
@@ -75,7 +86,7 @@ function getUrl () {
     setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
   })
 }
-
+/*
 getUrl()
 .then(function fetchData(url) {
   return fetch(url)
@@ -90,3 +101,4 @@ getUrl()
   console.log(data)
 })
 .catch(err => console.error(err));
+*/
