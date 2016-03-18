@@ -52,12 +52,5 @@ router.get('/hello/:name', function (req, res) {
 
 
 router.get('/stuff/:id', function (req, res) {
-
   res.status(500).json({ error: 'not implemented !' })
-
-  /*
-   res.type('json').send({
-   id: req.id
-   });
-   */
 });
