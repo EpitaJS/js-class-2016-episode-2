@@ -14,17 +14,43 @@ const router = module.exports = new express.Router();
 /////////////////////////////////////////////
 
 router.get('/', (req, res) => {
-	res.send('hello from API sub-router !');
   // TODO a small page listing your endpoints
-  // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
+
+  res.send(`
+<!DOCTYPE html>
+<head>
+	<title>Api routes</title>
+	<style type="text/css">
+		body {
+			margin: 40px;
+			font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+			color: #333;
+		}
+	</style>
+</head>
+
+<h1>...</h1>
+<li><a>${ req.baseUrl }/sexyLady</a>
+<li><a>${ req.baseUrl }/patate</a>
+
+<script>
+	document.querySelector('h1').textContent = document.title;
+	Array.prototype.forEach.call(document.querySelectorAll('a'), function(el) {
+		el.href || (el.href = el.text);
+	});
+</script>
+	`);
 });
 
-
-
 // TODO one or two routes
-// be creative !
 
+router.get('/sexyLady', function(req, res) {
+  res.send(`<img src="https://static.mmzstatic.com/wp-content/uploads/2012/01/trollface-meme.jpg">`)
+});
 
+router.get('/patate', function(req, res) {
+  res.send(`<img src="http://img.over-blog-kiwi.com/0/02/84/12/20140115/ob_1522c2_patate-femme.jpg">`)
+});
 
 ////////////////// examples //////////////
 
@@ -35,7 +61,7 @@ router.get('/hello/:name', function (req, res) {
 
 router.get('/stuff/:id', function (req, res) {
 
-  res.status(500).json({ error: 'not implemented !' })
+  res.status(500).json({ error: 'not implemented !' });
 
   /*
    res.type('json').send({
