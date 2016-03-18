@@ -33,9 +33,13 @@ prompt.get([{
   tryAgain(callback);
 });
 
-function callback(arg1, arg2) {
-  if (!arg2) {
+function callback(err, hasWon) {
+  if (err) return console.error(err);
+  if (!hasWon) {
     tryAgain(callback);
+  }
+  else {
+    prompt.stop();
   }
 }
 
