@@ -44,7 +44,7 @@ function askUser() {
       }
     ], function (choices) {
       console.log(choices);
-      return Promise.resolve("Success");
+      return resolve(choices);
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     });
@@ -62,20 +62,19 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  fetch(url).then(function(response) {
+  return fetch(url).then(function onResponse(response) {
   if(response.ok) {
-    response.blob().then(function(myBlob) {
-      var objectURL = URL.createObjectURL(myBlob);
-      return Promise.resolve("Success :: " + objectURL);
-    });
-  } else {
+    spinner.stop();
+    return response.json();
+  }
+  else {
     console.log('Network response was not ok.');
+    throw new Error('fetchData not implemented !');
   }
   }).catch(function(error) {
     console.log('There has been a problem with your fetch operation: ' + error.message);
+    return Promise.reject(new Error('fetchData not implemented !'));
   });
-
-  return Promise.reject(new Error('fetchData not implemented !'));
 }
 
 function displayResults(data) {
@@ -89,17 +88,17 @@ function getUrl () {
   })
 }
 
-getUrl()
-.then(function fetchData(url) {
-  return fetch(url)
-    .then(function onResponse(response) {
-      if(response.ok)
-        return response.json();
-      else
-        throw new Error('Network response was not ok.');
-    });
-})
-.then(function displayResults(data) {
-  console.log(data)
-})
-.catch(err => console.error(err));
+// getUrl()
+// .then(function fetchData(url) {
+//   return fetch(url)
+//     .then(function onResponse(response) {
+//       if(response.ok)
+//         return response.json();
+//       else
+//         throw new Error('Network response was not ok.');
+//     });
+// })
+// .then(function displayResults(data) {
+//   console.log(data)
+// })
+// .catch(err => console.error(err));

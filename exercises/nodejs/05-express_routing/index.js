@@ -30,7 +30,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/', function(req, res) {
-  res.send('hello from app ! Try /meta /api');
+  res.sendfile('main.html');
+});
+
+app.get('/api', function(req, res) {
+
 });
 
 app.use('/api', api_router);
