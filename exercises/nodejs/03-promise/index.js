@@ -45,6 +45,9 @@ function askUser() {
     ], function (choices) {
       console.log(choices);
 
+      fetchData(choices)
+        .then(response => console.log(displayResults(response)))
+        .catch(err => console.error(err));
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     });
@@ -60,22 +63,28 @@ function fetchData(choices) {
   const spinner = ora('Fetching StarWars API...');
   spinner.start();
 
+  return fetch(url)
+  .then(function(response) {
+    if (response.ok)
+      return Promise.resolve(response.json());
+    else
+      throw new Error('Something wrong happened');
+  })
+  .catch(function (error) { return Promise.reject(error) });
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
 }
 
 function displayResults(data) {
   console.log('result :\n', prettyjson.render(data));
 }
-
-
+/*
 function getUrl () {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
   })
-}
-
+}*/
+/*
 getUrl()
 .then(function fetchData(url) {
   return fetch(url)
@@ -90,3 +99,4 @@ getUrl()
   console.log(data)
 })
 .catch(err => console.error(err));
+*/

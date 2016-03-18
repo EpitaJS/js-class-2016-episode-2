@@ -29,8 +29,16 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(isFound);
 });
+
+function isFound(err, numberIsFound) {
+     if (err) return console.error(err)
+
+     if (!numberIsFound) {
+        tryAgain(isFound);
+     }
+}
 
 
 function tryAgain(callback) {

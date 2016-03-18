@@ -19,12 +19,15 @@ router.get('/', (req, res) => {
   // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
 });
 
+router.get('/ping', (req, res) => {
+	res.send('pong');
+});
 
-
+router.get('/echo/:toecho', (req, res) => {
+	 res.send(`Echo, ${req.toecho} !`);
+})
 // TODO one or two routes
 // be creative !
-
-
 
 ////////////////// examples //////////////
 
