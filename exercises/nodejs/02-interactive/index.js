@@ -16,6 +16,7 @@ const chalk = require('chalk');
 const prompt = require('prompt'); // https://www.npmjs.com/package/prompt
 
 const valueToGuess = _.random(1, 100);
+console.log(valueToGuess);
 
 prompt.start();
 
@@ -29,9 +30,14 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(callback);
 });
 
+function callback(arg1, arg2) {
+  if (!arg2) {
+    tryAgain(callback);
+  }
+}
 
 function tryAgain(callback) {
   prompt.get( [{
