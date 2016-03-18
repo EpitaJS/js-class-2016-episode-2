@@ -29,7 +29,11 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(function callback(err, hasWon)
+      {
+          if (err) return console.error(err);
+          if (!hasWon) tryAgain(callback);
+      });
 });
 
 
