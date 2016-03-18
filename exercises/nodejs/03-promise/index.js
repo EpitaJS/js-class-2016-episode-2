@@ -3,11 +3,11 @@
 'use strict';
 
 /**
- * FETCHING AN API
- *
- * Fetch the StarWars API  http://swapi.co/
- *
- */
+* FETCHING AN API
+*
+* Fetch the StarWars API  http://swapi.co/
+*
+*/
 
 
 const _ = require('lodash');
@@ -22,71 +22,81 @@ askUser()
 .then(fetchData)
 .then(displayResults)
 .catch((err) => {
-  console.error('! Something bad happened :');
-  console.error(err);
+    console.error('! Something bad happened :');
+    console.error(err);
 });
 
 
 function askUser() {
-  return new Promise(function (resolve, reject) {
-    inquirer.prompt([
-      {
-        name: 'dataType',
-        type: 'list',
-        message: 'What do you want to know about ?',
-        default: 'people',
-        choices: ['films', 'people', 'planets', 'species', 'starships', 'vehicles']
-      },
-      {
-        name: 'id',
-        message: 'Which id ? (1-n)',
-        default: '9'
-      }
-    ], function (choices) {
-      console.log(choices);
+    return new Promise(function (resolve, reject) {
+        inquirer.prompt([
+            {
+                name: 'dataType',
+                type: 'list',
+                message: 'What do you want to know about ?',
+                default: 'people',
+                choices: ['films', 'people', 'planets', 'species', 'starships', 'vehicles']
+            },
+            {
+                name: 'id',
+                message: 'Which id ? (1-n)',
+                default: '9'
+            }
+        ], function (choices) {
+            console.log(choices);
 
-      // TODO resolve the promise !!!
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+            // TODO resolve the promise !!!
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+            resolve(choices);
+        });
     });
-  });
 }
 
 function fetchData(choices) {
-  console.log('fetchData input :', choices);
+    console.log('fetchData input :', choices);
 
-  const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id;
-  console.log(url);
+    const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id;
+    console.log(url);
 
-  const spinner = ora('Fetching StarWars API...');
-  spinner.start();
+    const spinner = ora('Fetching StarWars API...');
+    spinner.start();
 
-  // TODO now use the fetch API :
-  // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+    // TODO now use the fetch API :
+    // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
+    //return Promise.reject(new Error('fetchData not implemented !'));
+    return fetch(url)
+        .then(function onResponse(response) {
+            if(response.ok) {
+                spinner.stop();
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+    });
 }
 
 function displayResults(data) {
-  console.log('result :\n', prettyjson.render(data));
+    console.log('result :\n', prettyjson.render(data));
 }
 
 
 function getUrl () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
-  })
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve("http://swapi.co/api/people/3"), 1500)
+    })
 }
 
-getUrl()
+/*getUrl()
 .then(function fetchData(url) {
-  return fetch(url)
-    .then(function onResponse(response) {
-      if(response.ok)
-        return response.json();
-      else
-        throw new Error('Network response was not ok.');
-    });
+return fetch(url)
+.then(function onResponse(response) {
+if(response.ok)
+return response.json();
+else
+throw new Error('Network response was not ok.');
+});
 })
 .then(function displayResults(data) {
-  console.log(data)
+console.log(data)
 })
-.catch(err => console.error(err));
+.catch(err => console.error(err));*/
