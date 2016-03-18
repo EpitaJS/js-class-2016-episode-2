@@ -44,6 +44,7 @@ function askUser() {
       }
     ], function (choices) {
       console.log(choices);
+      return(resolve(choices));
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise

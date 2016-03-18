@@ -29,7 +29,11 @@ prompt.get([{
 
   console.log(`Welcome, ${result.name} !`);
 
-  tryAgain(function() {});
+  tryAgain(function gameLoop(err, hasWon) {
+    if (err) chalk.blue.bold(err);
+    else if (!hasWon) tryAgain(gameLoop);
+  });
+  
 });
 
 
