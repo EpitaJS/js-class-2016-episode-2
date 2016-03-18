@@ -44,7 +44,7 @@ function askUser() {
       }
     ], function (choices) {
       console.log(choices);
-
+      return Promise.resolve("Success");
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     });
@@ -62,6 +62,19 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
+  fetch(url).then(function(response) {
+  if(response.ok) {
+    response.blob().then(function(myBlob) {
+      var objectURL = URL.createObjectURL(myBlob);
+      return Promise.resolve("Success :: " + objectURL);
+    });
+  } else {
+    console.log('Network response was not ok.');
+  }
+  }).catch(function(error) {
+    console.log('There has been a problem with your fetch operation: ' + error.message);
+  });
+
   return Promise.reject(new Error('fetchData not implemented !'));
 }
 
