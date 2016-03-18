@@ -17,15 +17,12 @@ const ora = require('ora'); // https://github.com/sindresorhus/ora
 const prettyjson = require('prettyjson');
 
 
-// admire how it's readbale :
+// admire how it s readbale :
 askUser()
 .then(fetchData)
 .then(displayResults)
-.catch((err) => {
-  console.error('! Something bad happened :');
-  console.error(err);
+.catch( (err) => {  console.error('! Something bad happened :');  console.error(err);
 });
-
 
 function askUser() {
   return new Promise(function (resolve, reject) {
@@ -43,50 +40,35 @@ function askUser() {
         default: '9'
       }
     ], function (choices) {
-      console.log(choices);
-
-      // TODO resolve the promise !!!
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+        
+      const spinner = ora('Fetching StarWars API...');
+      spinner.start();
+  
+      fetchData(choices, spinner)
+        .then(function onResponse(response) {
+            spinner.stop();
+            if(response.ok)
+                return response.json();
+            else
+                throw new Error('Network response was not ok.');
+        })
+        .then(function displayResults(data) {
+            console.log(data)
+        })
+        .catch(err => console.error(err));
     });
   });
 }
 
-function fetchData(choices) {
+function fetchData(choices, spinner) {
   console.log('fetchData input :', choices);
 
-  const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id;
-  console.log(url);
+  const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id + '/';
+  console.log('Fetching from ' + url);
 
-  const spinner = ora('Fetching StarWars API...');
-  spinner.start();
-
-  // TODO now use the fetch API :
-  // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  return fetch(url);
 }
 
 function displayResults(data) {
   console.log('result :\n', prettyjson.render(data));
 }
-
-
-function getUrl () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
-  })
-}
-
-getUrl()
-.then(function fetchData(url) {
-  return fetch(url)
-    .then(function onResponse(response) {
-      if(response.ok)
-        return response.json();
-      else
-        throw new Error('Network response was not ok.');
-    });
-})
-.then(function displayResults(data) {
-  console.log(data)
-})
-.catch(err => console.error(err));
