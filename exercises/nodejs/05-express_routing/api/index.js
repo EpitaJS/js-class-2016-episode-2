@@ -17,8 +17,26 @@ router.get('/', (req, res) => {
 //	res.send('hello from API sub-router !');
   // TODO a small page listing your endpoints
   // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
-  var routes = router.stack
-  res.send(routes)
+  var routes = router.stack;
+  var str = `
+	<!DOCTYPE html>
+	<head>
+	  <title>meta routes</title>
+	  <style type="text/css">
+		  body {
+			  margin: 40px;
+			  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+			  color: #333;
+		  }
+	  </style>
+	</head>
+
+	<h1>...</h1>`;
+	routes.forEach(function (route) {
+		console.log(route);
+		str += `<li><a href="/api${route.route.path}">${route.route.path}</a>`
+	});
+	res.send(str);
 });
 
 
@@ -34,8 +52,7 @@ router.get('/repo/forks', function (req, res) {
 		if (response.ok)
 		{
 			response.json().then(function (data) {
-				console.log(data);
-				res.send(data);
+				res.type('json').send(data);
 			});
 		}
 		else
@@ -51,14 +68,12 @@ router.get('/repo/commits', function (req, res) {
 		if (response.ok)
 		{
 			response.json().then(function (data) {
-				console.log(data);
-				res.send(data);
+				res.type('json').send(data);
 			});
 		}
 		else
 			throw new Error('Network response was not ok.');
 	})
-	console.log('here');
 });
 
 ////////////////// examples //////////////
