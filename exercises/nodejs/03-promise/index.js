@@ -47,6 +47,7 @@ function askUser() {
 
       // TODO resolve the promise !!!
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+      resolve(choices);
     });
   });
 }
@@ -62,7 +63,12 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  return new Promise((resolve, reject) => {
+      fetch(url, [])
+      .then(function (response) {
+          resolve(response.json());
+      })
+  });
 }
 
 function displayResults(data) {
@@ -71,22 +77,25 @@ function displayResults(data) {
 
 
 function getUrl () {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve("http://swapi.co/people/3"), 100)
   })
 }
 
-getUrl()
-.then(function fetchData(url) {
-  return fetch(url)
-    .then(function onResponse(response) {
-      if(response.ok)
-        return response.json();
-      else
-        throw new Error('Network response was not ok.');
-    });
-})
-.then(function displayResults(data) {
-  console.log(data)
-})
-.catch(err => console.error(err));
+
+setTimeout(() => {
+    getUrl()
+    .then(function fetchData(url) {
+      return fetch(url)
+        .then(function onResponse(response) {
+          if(response.ok)
+            return response.json();
+          else
+            throw new Error('Network response was not ok.');
+        });
+    })
+    .then(function displayResults(data) {
+      console.log(data)
+    })
+    .catch(err => console.error(err));
+}, 20000);
