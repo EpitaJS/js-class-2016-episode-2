@@ -28,20 +28,13 @@ prompt.get([{
   if (err) return console.error(err);
 
   console.log(`Welcome, ${result.name} !`);
-  
-  callTryAgain();
-});
-
-
-function loop(callback, result) {
+  tryAgain(function loop(callback, result){
     if (result)
         return;
     tryAgain(loop);
-}
+  })
+});
 
-function callTryAgain() {
-    tryAgain(loop);
-}
 
 function tryAgain(callback) {
   prompt.get( [{
