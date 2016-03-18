@@ -65,8 +65,13 @@ function fetchData(choices) {
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
       return fetch(url)
         .then(function(res) {
-            spinner.stop();
-            return res.json();
+            if (res.ok) {
+                spinner.stop();
+                return res.json();
+            }
+            else {
+                throw new Error('Network response was not ok');
+            }
         });
   //return Promise.reject(new Error('fetchData not implemented !'));
 }
@@ -75,7 +80,7 @@ function displayResults(data) {
   console.log('result :\n', prettyjson.render(data));
 }
 
-
+/*
 function getUrl () {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
@@ -96,3 +101,4 @@ getUrl()
   console.log(data)
 })
 .catch(err => console.error(err));
+*/
