@@ -1,0 +1,12 @@
+Changes
+===
+
+I improved the Exercice 3 to call again the prompt on the Star Wars API.
+
+For the Request routes, I added a call on GitHub API to get the forks of the
+class repository and another one to get the commits on my forked repository.
+
+Cloud
+====
+
+My Heroku deployment URL is : https://jscourse.herokuapp.com/
