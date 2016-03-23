@@ -45,11 +45,11 @@ function tryAgain(callback) {
 
     if (result.value < valueToGuess) {
       console.log(chalk.red('Too small !'));
-      return callback(null, false);
+      return callback(tryAgain(function() {}), false);
     }
     else if (result.value > valueToGuess) {
       console.log(chalk.red('Too big !'));
-      return callback(null, false);
+      return callback(tryAgain(function() {}), false);
     }
     else {
       console.log(chalk.black.bgYellow('You won !'));
