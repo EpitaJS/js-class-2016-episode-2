@@ -29,7 +29,8 @@ router.get('/', (req, res) => {
 </head>
 
 <h1>...</h1>
-<li><a>${req.baseUrl}/file1/index.html</a>
+<li><a>${req.baseUrl}/histoire/histoire.html</a>
+<li><a>${req.baseUrl}/materiel/materiel.html</a>
 
 <script>
 	document.querySelector('h1').textContent = document.title;
@@ -41,19 +42,31 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/file1/:pathfile', function(req, res) {
-	var filename = req.params.pathfile;
+router.get('/histoire/:path', function(req, res) {
+	var filename = req.params.path;
 	var localPath = __dirname + "/";
-
-	// TODO: Insert extension file checking here !
 
 	localPath += filename;
 	fs.exists(localPath, function (exists) {
 		if (exists) {
-			console.log("Serving file: " + localPath);
 			getFile(localPath, res);
 		} else {
-			console.log("File not found: " + localPath);
+			res.writeHead(404);
+			res.end();
+		}
+	})
+});
+
+router.get('/materiel/:path', function(req, res) {
+	var filename = req.params.path;
+	var localPath = __dirname + "/";
+
+	localPath += filename;
+
+	fs.exists(localPath, function (exists) {
+		if (exists) {
+			getFile(localPath, res);
+		} else {
 			res.writeHead(404);
 			res.end();
 		}

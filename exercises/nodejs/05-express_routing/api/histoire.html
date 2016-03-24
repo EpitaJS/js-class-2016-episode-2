@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" href="../../common/assets/favicons/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>...</title>
+
+  <script src="../../../jspm_packages/system.js"></script>
+  <script src="../../../config.js"></script>
+
+</head>
+
+<div class="container">
+  <h1>Un peu d'histoire</h1>
+  <p>Durant des millénaires, l'Homme a dû chasser pour assurer sa survie. C'est donc au cours de la préhistoire,
+       probablement à l'époque magdalénienne (au paléolithique supérieur -35000 à -12000) que l'arc a été inventé.
+       Malheureusement, il ne reste que peu de traces permettant de comprendre l'apparition et l'évolution du tir à l'arc.</p>
+  <p>Le tir à l'arc est donc devenu, au fil du temps, une activité de loisir et de compétition avec ses organisations,
+      ses règlements, mais aussi son industrie qui tente de tirer parti des dernières évolutions technologiques.
+      L'arc a également su trouver sa place au cinéma dans des films récents inspirés de l'histoire, de légendes ou de contes</p>
+  <p class="text-center">
+      <img src="http://www.letiralarc.fr/images/photos/Guenievre-LeRoiArthur.jpg" alt="..." class="img-circle img-responsive" />
+  </p>
+
+</div>
+
+<script>
+  // auto-set page titles
+  document.title = document.querySelector('h1').textContent = document.querySelector('h1').textContent;
+  // ease creation of links
+  Array.prototype.forEach.call(document.querySelectorAll('a'), function(el) {
+    el.href || (el.href = el.text);
+  });
+</script>
+
+<noscript>
+  For full functionality of this site it is necessary to enable JavaScript.
+  Here are the <a href="http://www.enable-javascript.com/" target="_blank">
+  instructions how to enable JavaScript in your web browser</a>.
+</noscript>
