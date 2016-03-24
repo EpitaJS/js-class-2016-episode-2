@@ -6,6 +6,7 @@
 const _ = require('lodash');
 const express = require('express');
 
+var fs = require('fs');
 
 /////////////////////////////////////////////
 
@@ -14,16 +15,65 @@ const router = module.exports = new express.Router();
 /////////////////////////////////////////////
 
 router.get('/', (req, res) => {
-	res.send('hello from API sub-router !');
-  // TODO a small page listing your endpoints
-  // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
+	res.send(`
+<!DOCTYPE html>
+<head>
+	<title>Tir à l'arc</title>
+	<style type="text/css">
+		body {
+			margin: 40px;
+			font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+			color: #333;
+		}
+	</style>
+</head>
+
+<h1>...</h1>
+<li><a>${req.baseUrl}/file1/index.html</a>
+
+<script>
+	document.querySelector('h1').textContent = document.title;
+	Array.prototype.forEach.call(document.querySelectorAll('a'), function(el) {
+		el.href || (el.href = el.text);
+	});
+</script>
+	`);
 });
 
 
+router.get('/file1/:pathfile', function(req, res) {
+	var filename = req.params.pathfile;
+	var localPath = __dirname + "/";
 
-// TODO one or two routes
-// be creative !
+	// TODO: Insert extension file checking here !
 
+	localPath += filename;
+	fs.exists(localPath, function (exists) {
+		if (exists) {
+			console.log("Serving file: " + localPath);
+			getFile(localPath, res);
+		} else {
+			console.log("File not found: " + localPath);
+			res.writeHead(404);
+			res.end();
+		}
+	})
+});
+
+
+function getFile(localPath, res) {
+	fs.readFile(localPath, function(err, contents) {
+		if(!err) {
+			res.setHeader("Content-Length", contents.length);
+			//res.setHeader("Content-Type", mimeType);
+			res.statusCode = 200;
+			res.end(contents);
+		} else {
+			res.writeHead(500);
+			res.end();
+		}
+	});
+}
 
 
 ////////////////// examples //////////////
