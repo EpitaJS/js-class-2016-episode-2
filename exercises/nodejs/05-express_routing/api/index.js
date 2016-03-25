@@ -29,8 +29,8 @@ router.get('/', (req, res) => {
 </head>
 
 <h1>...</h1>
-<li><a>${req.baseUrl}/histoire/histoire.html</a>
-<li><a>${req.baseUrl}/materiel/materiel.html</a>
+<li><a>${req.baseUrl}/tir/histoire.html</a>
+<li><a>${req.baseUrl}/tir/materiel.html</a>
 
 <script>
 	document.querySelector('h1').textContent = document.title;
@@ -42,27 +42,11 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/histoire/:path', function(req, res) {
+router.get('/tir/:path', function(req, res) {
 	var filename = req.params.path;
 	var localPath = __dirname + "/";
 
 	localPath += filename;
-	fs.exists(localPath, function (exists) {
-		if (exists) {
-			getFile(localPath, res);
-		} else {
-			res.writeHead(404);
-			res.end();
-		}
-	})
-});
-
-router.get('/materiel/:path', function(req, res) {
-	var filename = req.params.path;
-	var localPath = __dirname + "/";
-
-	localPath += filename;
-
 	fs.exists(localPath, function (exists) {
 		if (exists) {
 			getFile(localPath, res);
