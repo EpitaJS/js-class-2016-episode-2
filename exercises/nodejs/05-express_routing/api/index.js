@@ -55,17 +55,8 @@ router.get('/psg', function(req, res) {
 router.get('/player/:id', function(req, res) {
     var player_nb = Number(req.params.id);
     switch (player_nb) {
-        case 2 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2739/Silva-Thiago');
-            break;
         case 6 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2735/Verratti-Marco');
-            break;
-        case 7 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3120/Lucas');
-            break;
-        case 10 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2737/Ibrahimovic-Zlatan');
             break;
         case 11 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3766/Di-Maria-Angel');
@@ -75,9 +66,6 @@ router.get('/player/:id', function(req, res) {
             break;
         case 19 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3375/Aurier-Serge');
-            break;
-        case 27 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2374/Pastore-Javier');
             break;
         default :
             res.status(500).send('no player');
