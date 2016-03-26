@@ -61,12 +61,6 @@ router.get('/player/:id', function(req, res) {
         case 2 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2739/Silva-Thiago');
             break;
-        case 3 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3010/Kimpembe-Presnel');
-            break;
-        case 4 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3716/Stambouli-Benjamin');
-            break;
         case 5 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3180/Marquinhos');
             break;
@@ -94,38 +88,14 @@ router.get('/player/:id', function(req, res) {
         case 16 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3715/Trapp-Kevin');
             break;
-        case 17 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2410/Maxwell');
-            break;
         case 19 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3375/Aurier-Serge');
-            break;
-        case 20 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3771/Kurzawa-Layvin');
-            break;
-        case 23 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2759/van-der-Wiel-Gregory');
-            break;
-        case 25 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2733/Rabiot-Adrien');
             break;
         case 27 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2374/Pastore-Javier');
             break;
-        case 29 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3094/Augustin-Jean-Kevin');
-            break;
-        case 30 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2373/Sirigu-Salvatore');
-            break;
-        case 32 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3355/David-Luiz');
-            break;
-        case 33 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2754/Ongenda-Hervin');
-            break;
         default :
-            res.status(500).send('Available jersey, no player has this number');
+            res.status(500).send('no player');
             break;
     }});
 
