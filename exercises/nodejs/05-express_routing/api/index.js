@@ -55,26 +55,14 @@ router.get('/psg', function(req, res) {
 router.get('/player/:id', function(req, res) {
     var player_nb = Number(req.params.id);
     switch (player_nb) {
-        case 1 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2366/Douchez-Nicolas');
-            break;
         case 2 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2739/Silva-Thiago');
-            break;
-        case 5 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3180/Marquinhos');
             break;
         case 6 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2735/Verratti-Marco');
             break;
         case 7 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3120/Lucas');
-            break;
-        case 8 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/1825/Motta-Thiago');
-            break;
-        case 9 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3178/Cavani-Edinson');
             break;
         case 10 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2737/Ibrahimovic-Zlatan');
@@ -84,9 +72,6 @@ router.get('/player/:id', function(req, res) {
             break;
         case 14 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/2369/Matuidi-Blaise');
-            break;
-        case 16 :
-            res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3715/Trapp-Kevin');
             break;
         case 19 :
             res.redirect('http://www.psg.fr/fr/Equipe-Pro/300002/Fiche-Joueur/3375/Aurier-Serge');
