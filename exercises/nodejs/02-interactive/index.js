@@ -41,15 +41,15 @@ function tryAgain(callback) {
     message: chalk.red('Must be a number between 1 and 100'), // Warning message to display if validation fails.
     required: true                        // If true, value entered must be non-empty.
   }], (err, result) => {
-    if (err) return callback(err);
+    if (err) return console.log(err);
 
     if (result.value < valueToGuess) {
       console.log(chalk.red('Too small !'));
-      return callback(null, false);
+      return callback(tryAgain(function(){}), false);
     }
     else if (result.value > valueToGuess) {
       console.log(chalk.red('Too big !'));
-      return callback(null, false);
+      return callback(tryAgain(function() {}), false);
     }
     else {
       console.log(chalk.black.bgYellow('You won !'));
