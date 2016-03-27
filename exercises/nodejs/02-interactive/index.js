@@ -14,9 +14,7 @@
 const _ = require('lodash');
 const chalk = require('chalk');
 const prompt = require('prompt'); // https://www.npmjs.com/package/prompt
-
 const valueToGuess = _.random(1, 100);
-console.log(valueToGuess);
 
 prompt.start();
 
