@@ -42,12 +42,7 @@ function askUser() {
         message: 'Which id ? (1-n)',
         default: '9'
       }
-    ], function (choices) {
-      console.log(choices);
-
-      // TODO resolve the promise !!!
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-    });
+    ], resolve);
   });
 }
 
@@ -62,7 +57,14 @@ function fetchData(choices) {
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  return fetch(url).then(function(response) {
+    spinner.stop();
+    if(response.ok) {
+      return response.json();
+    } else {
+      console.log('Network response was not ok.');
+    }
+  });
 }
 
 function displayResults(data) {
