@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <head>
-      <title>Disney</title>
+      <title>Frozen</title>
       <style type="text/css">
         body {
           margin:40px;
@@ -38,7 +38,10 @@ router.get('/', (req, res) => {
     </head>
     <body>
       <h1>...</h1>
-      <li><a>${req.baseUrl}/La reine des Neiges</a></li>
+      <li><a>${req.baseUrl}/Anna</a></li>
+      <li><a>${req.baseUrl}/Elsa</a></li>
+      <li><a>${req.baseUrl}/Olaf</a></li>
+      <li><a>${req.baseUrl}/Sven</a></li>
     </body>
     <script>
       document.querySelector('h1').textContent = document.title;
@@ -49,8 +52,20 @@ router.get('/', (req, res) => {
   `)
 });
 
-router.get('/La reine des Neiges', function(req, res) {
-  res.send('image');
+router.get('/Anna', function(req, res) {
+  res.sendfile('exercises/nodejs/05-express_routing/api/anna.jpg');
+});
+
+router.get('/Elsa', function(req, res) {
+  res.sendfile('exercises/nodejs/05-express_routing/api/elsa.jpg');
+});
+
+router.get('/Olaf', function(req, res) {
+  res.sendfile('exercises/nodejs/05-express_routing/api/olaf.jpg');
+});
+
+router.get('/Sven', function(req, res) {
+  res.sendfile('exercises/nodejs/05-express_routing/api/sven.jpg');
 });
 
 ////////////////// examples //////////////
