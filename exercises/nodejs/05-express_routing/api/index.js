@@ -15,6 +15,7 @@ const router = module.exports = new express.Router();
 
 router.get('/', (req, res) => {
 res.send('hello from API sub-router !');
+res.sens(`
 <!DOCTYPE html>
  <head>
  	<title>meta routes</title>

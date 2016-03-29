@@ -65,16 +65,16 @@ function fetchData(choices) {
     .then(function onResponse(response) {
       if(response.ok)
       {
-      	spinner.stop();
+	spinner.stop();
 	return response.json();
       }
       else
-      	throw new Error('Network response was not ok');
+	throw new Error('Network response was not ok');
       });
 
   // TODO now use the fetch API :
   // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  //return Promise.reject(new Error('fetchData not implemented !'));
 }
 
 function displayResults(data) {
