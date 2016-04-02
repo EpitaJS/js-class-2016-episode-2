@@ -6,6 +6,7 @@
 const _ = require('lodash');
 const express = require('express');
 
+var fs = require('fs');
 
 /////////////////////////////////////////////
 
@@ -14,32 +15,55 @@ const router = module.exports = new express.Router();
 /////////////////////////////////////////////
 
 router.get('/', (req, res) => {
-	res.send('hello from API sub-router !');
-  // TODO a small page listing your endpoints
-  // cf. js-class-2016-episode-2\src\server\common\meta-routes.js
+  res.send(`
+<!DOCTYPE html>
+<head>
+  <title>Say my name</title>
+  <style type="text/css">
+    body {
+      margin: 40px;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      color: #333;
+    }
+  </style>
+</head>
+<h1>...</h1>
+<li><a>${req.baseUrl}/saymyname/saymyname.html</a>
+<script>
+  document.querySelector('h1').textContent = document.title;
+  Array.prototype.forEach.call(document.querySelectorAll('a'), function(el) {
+    el.href || (el.href = el.text);
+  });
+</script>
+  `);
+});
+
+router.get('/saymyname/:path', function(req, res) {
+  var filename = req.params.path;
+  var localPath = __dirname + "/";
+
+  localPath += filename;
+
+  fs.exists(localPath, function (exists) {
+    if (exists) {
+      getFile(localPath, res);
+    } else {
+      res.writeHead(404);
+      res.end();
+    }
+  })
 });
 
 
-
-// TODO one or two routes
-// be creative !
-
-
-
-////////////////// examples //////////////
-
-router.get('/hello/:name', function (req, res) {
-  res.send(`Hello, ${req.name} !`);
-});
-
-
-router.get('/stuff/:id', function (req, res) {
-
-  res.status(500).json({ error: 'not implemented !' })
-
-  /*
-   res.type('json').send({
-   id: req.id
-   });
-   */
-});
+function getFile(localPath, res) {
+  fs.readFile(localPath, function(err, contents) {
+    if(!err) {
+      res.setHeader("Content-Length", contents.length);
+      res.statusCode = 200;
+      res.end(contents);
+    } else {
+      res.writeHead(500);
+      res.end();
+    }
+  });
+}
