@@ -53,18 +53,38 @@ function askUser() {
 
 function fetchData(choices) {
   console.log('fetchData input :', choices);
-
   const url = 'http://swapi.co/api/' + choices.dataType + '/' + choices.id;
   console.log(url);
-
   const spinner = ora('Fetching StarWars API...');
   spinner.start();
-
-  // TODO now use the fetch API :
-  // https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch#Checking_that_the_fetch_was_successful
-  return Promise.reject(new Error('fetchData not implemented !'));
+  fetch(url).then(function(response) {
+      if (response.ok) {
+          return response.blob();
+      }
+      else {
+          console.log("Error");
+      }
+  })
 }
-
 function displayResults(data) {
-  console.log('result :\n', prettyjson.render(data));
+  console.log('Results:\n', prettyjson.render(data));
 }
+function getUrl () {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve("http://swapi.co/people/3"), 1500)
+  })
+}
+getUrl()
+.then(function fetchData(url) {
+  return fetch(url)
+    .then(function onResponse(response) {
+      if(response.ok)
+        return response.json();
+      else
+        throw new Error('Network response was not ok.');
+    });
+})
+.then(function displayResults(data) {
+  console.log(data)
+})
+.catch(err => console.error(err));
